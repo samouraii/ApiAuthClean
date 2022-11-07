@@ -1,10 +1,12 @@
-﻿namespace APiAuthTest.Services.UserService
+﻿using APiAuthTest.Model.UserModel;
+
+namespace APiAuthTest.Services.UserService
 {
     public interface IUserService
     {
         public string GetMyName();
-        public User FindOneUser(string unsername);
+        public User? FindOneUser(string username);
 
-        public void InsertUser(User user);
+        public bool InsertUser(User user);
     }
 }

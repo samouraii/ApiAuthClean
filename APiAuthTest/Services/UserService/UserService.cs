@@ -1,14 +1,17 @@
 ﻿using System.Security.Claims;
+using APiAuthTest.Model;
+using APiAuthTest.Model.UserModel;
 
 namespace APiAuthTest.Services.UserService
 {
     public class UserService : IUserService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public UserService(IHttpContextAccessor httpContextAccessor)
+        private readonly UserContext _UserContext;
+        public UserService(IHttpContextAccessor httpContextAccessor, UserContext userContext)
         {
             _httpContextAccessor = httpContextAccessor;
+            _UserContext = userContext;
         }
         public string GetMyName()
         {
@@ -20,19 +23,23 @@ namespace APiAuthTest.Services.UserService
             return result;
         }
 
-        public User FindOneUser()
+      
+
+        public User? FindOneUser(string username)
         {
-            return new User();
+            User? u = _UserContext.Users.FirstOrDefault(s => s.Username == username);
+            return u;
         }
 
-        public User FindOneUser(string unsername)
+        public bool InsertUser(User user)
         {
-            throw new NotImplementedException();
-        }
-
-        public void InsertUser(User user)
-        {
-            throw new NotImplementedException();
+            try {
+                _UserContext.Users.Add(user);
+                _UserContext.SaveChanges();
+                return true;
+            }
+            catch { return false; }
+             
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using APiAuthTest.Services.UserService;
+﻿using APiAuthTest.Model;
+using APiAuthTest.Model.UserModel;
+using APiAuthTest.Services.UserService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,11 +18,13 @@ namespace APiAuthTest.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly IUserService _userService;
+        private readonly UserContext _usercontext;
 
-        public AuthController(IConfiguration configuration, IUserService userService)
+        public AuthController(IConfiguration configuration, IUserService userService, UserContext userContext)
         {
             this._configuration = configuration;
             this._userService = userService;
+            _usercontext = userContext;
         }
         //public static User user = new User();
 
@@ -47,7 +51,8 @@ namespace APiAuthTest.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<string>> login(UserDTO request)
         {
-            User user = _userService.FindOneUser(request.UserName);
+            _usercontext.Users.FirstOrDefault(s => s.Username == "string");
+            User? user = _userService.FindOneUser(request.UserName);
             if (user == null || user.Username != request.UserName)
             {
                 return BadRequest("User Not found.");

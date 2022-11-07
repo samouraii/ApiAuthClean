@@ -1,4 +1,4 @@
-﻿namespace APiAuthTest
+﻿namespace APiAuthTest.Model.UserModel
 {
     public class UserDTO
     {

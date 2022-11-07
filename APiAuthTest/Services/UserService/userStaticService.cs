@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using APiAuthTest.Model.UserModel;
 
 namespace APiAuthTest.Services.UserService
 {
@@ -15,9 +16,10 @@ namespace APiAuthTest.Services.UserService
             return _user.FirstOrDefault(u => u.Username == username);
         }
 
-        public void InsertUser(User user)
+        public bool InsertUser(User user)
         {
             _user.Add(user);
+            return true;
         }
 
         public string GetMyName()
