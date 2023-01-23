@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace APiAuthTest.Model.UserModel
 {
@@ -12,8 +13,27 @@ namespace APiAuthTest.Model.UserModel
         public string Username { get; set; } = string.Empty;
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
-        public string RefreshToken { get; set; } = string.Empty;
-        public DateTime TokenCreated { get; set; }
-        public DateTime TokenExpire { get; set; }
+        public IEnumerable<Token> token { get; set; }
+
+        [AllowNull]
+        [ForeignKey("Personne")]
+        public Personne? personne { get; set; } = null!;
+        [AllowNull]
+       // public  List<Roles> roles{ get; set; }
+        public List<Permissions> permissions { get; set; }
+        
+
+        public User(IEnumerable<Token> token = null, List<Permissions> p = null)
+        {
+            this.token = token?? new List<Token>();
+           // this.roles = r;
+            this.permissions = p;
+        }
+        public User()
+        {
+            this.token = new List<Token>();
+           // this.roles = new List<Roles>();
+            this.permissions = new List<Permissions>();
+        }
     }
 }
