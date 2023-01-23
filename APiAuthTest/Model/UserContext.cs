@@ -10,5 +10,10 @@ namespace APiAuthTest.Model
         {
         }
         public DbSet<User> Users { get; set; } = null!;
+        public DbSet<Personne> Personne { get; set; } = null!;
+        public DbSet<Permissions> Permission { get; set; } = null!;
+        public DbSet<societe> societe { get; set; } = null!;
+        public DbSet<Contact> contacts { get; set; } = null!;
+        public DbSet<MoyenDeConctact> MoyenDeConctacts { get; set; } = null!;
     }
 }

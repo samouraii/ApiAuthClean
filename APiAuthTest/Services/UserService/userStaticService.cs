@@ -31,5 +31,40 @@ namespace APiAuthTest.Services.UserService
             }
             return result;
         }
+
+        public IEnumerable<Permissions> GetPermissions(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Personne> GetPersonnes(int? id = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Personne PostPersonnes(Personne p)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Personne> GetPersonnes()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Personne GetPersonne(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PutPersonnes(PersonneDTO p, int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Personne DelPersonnes(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

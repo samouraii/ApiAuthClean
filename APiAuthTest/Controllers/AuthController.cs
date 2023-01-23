@@ -4,7 +4,9 @@ using APiAuthTest.Services.UserService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -44,6 +46,7 @@ namespace APiAuthTest.Controllers
             user.Username = request.UserName;
             user.PasswordSalt = passwordSalt;
             user.PasswordHash = passwordHash;
+            user.personne = request.personne;
             _userService.InsertUser(user);
             return Ok(user);
         }
@@ -64,11 +67,11 @@ namespace APiAuthTest.Controllers
             string token = CreateToken(user);
             var refreshToken = GenerateRefreshToken();
             SetRefreshToken(refreshToken, user);
-            return Ok(token);
+            return Ok(JsonConvert.SerializeObject(new Token { token= token }));
         }
 
         [HttpPost("refresh-token")]
-        public async Task<ActionResult<string>> RefreshToken(User user)
+       /* public async Task<ActionResult<string>> RefreshToken(User user)
         {
             
             var refreshToken = Request.Cookies["refreshToken"];
@@ -85,7 +88,7 @@ namespace APiAuthTest.Controllers
             var newrefreshToken = GenerateRefreshToken();
             SetRefreshToken(newrefreshToken,  user);
             return Ok(token);
-        } 
+        } */
 
         private RefreshToken GenerateRefreshToken()
         {
@@ -107,27 +110,33 @@ namespace APiAuthTest.Controllers
             };
             Response.Cookies.Append("refreshToken", refreshToken.Token, CookieOptions);
 
-            user.RefreshToken = refreshToken.Token;
-            user.TokenCreated = refreshToken.Created;
-            user.TokenExpire = refreshToken.Expire;
+            //user.RefreshToken = refreshToken.Token;
+            //user.TokenCreated = refreshToken.Created;
+            //user.TokenExpire = refreshToken.Expire;
         }
         private string CreateToken(User user)
         {
+            DateTime t = DateTime.Now.AddMinutes(1);
+            string roles = "";
+            var tt = _userService.GetPermissions(user.Id).ToList<Permissions>();
+                tt.ForEach(x => roles += roles.Length >0? ";"+x.Name: x.Name);
             List<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Role, "Admin")
-            };
+                new Claim(ClaimTypes.Role, roles),
+                new Claim(ClaimTypes.Expiration,t.ToString()),
+                };
        
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512);
             var token = new JwtSecurityToken(
                 claims: claims,
-                expires: DateTime.Now.AddDays(1),
+                expires: t,
                 signingCredentials: creds);
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
             return jwt;
         }
+       
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             using (var hmac = new HMACSHA512())

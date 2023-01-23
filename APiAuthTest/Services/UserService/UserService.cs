@@ -1,6 +1,7 @@
-﻿using System.Security.Claims;
-using APiAuthTest.Model;
+﻿using APiAuthTest.Model;
 using APiAuthTest.Model.UserModel;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace APiAuthTest.Services.UserService
 {
@@ -41,5 +42,57 @@ namespace APiAuthTest.Services.UserService
             catch { return false; }
              
         }
+
+        public IEnumerable<Permissions> GetPermissions(int id)
+        {
+            User u = _UserContext.Users.Include(x=> x.permissions).First<User>(u => u.Id == id);
+            List<Permissions> permissions = new List<Permissions>();
+            // u.roles.ForEach(r => permissions.AddRange(r.permissions));
+            permissions.AddRange(u.permissions);
+
+            //_UserContext.Permission.Include(x => x.users) .StudentCourses.Include(x => x.Student).Where(entry => entry.CourseId == theIdYouWant).Select(entry => entry.Student)
+            return permissions.Distinct<Permissions>();
+           
+        }
+
+        public IEnumerable<Personne> GetPersonnes()
+        {
+            return _UserContext.Personne;
+           
+        }
+        public Personne GetPersonne(int id)
+        {
+            return _UserContext.Personne.First(p => p.IdPersonne == id);
+        }
+
+        public Personne PostPersonnes(Personne p)
+        {
+            _UserContext.Personne.Add(p);
+            _UserContext.SaveChanges();
+            return p;
+        }
+
+        public void PutPersonnes(PersonneDTO p, int id)
+        {
+            Personne pE = GetPersonne(id);
+
+            if (pE == null) throw new Exception("Not Valide argument");
+            
+            pE.FirstName = p.FirstName;
+            pE.Name = p.Name;
+
+            _UserContext.Personne.Update(pE);
+            _UserContext.SaveChanges();
+
+        }
+
+        public Personne DelPersonnes(int id)
+        {
+            Personne p = GetPersonne(id);
+            _UserContext.Personne.Remove(p);
+            return p;
+        }
+
+   
     }
 }
