@@ -17,6 +17,7 @@ namespace APiAuthTest.Model.ApplicationClient
         [DataType(DataType.DateTime)]
         public DateTime DateEnregistrement { get; } = new DateTime();
         public int Billet500 { get; set; } = 0;
+        public int Billet200 { get; set; } = 0;
         public int Billet100 { get; set; } = 0;
         public int Billet050 { get; set; } = 0;
         public int Billet020 { get; set; } = 0;

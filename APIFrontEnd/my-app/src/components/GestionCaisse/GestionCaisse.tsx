@@ -5,7 +5,7 @@ import { caisseService } from '../../services/caisse_service';
 import { CTable,CSmartTable } from '@coreui/react-pro';
 import '@coreui/coreui/dist/css/coreui.min.css'
 
-type CaisseDto ={
+ type CaisseDto = {
     billet500 : number,
     billet200 : number,
     billet100 : number,
@@ -17,7 +17,7 @@ type CaisseDto ={
     billet001 : number,
     
    
-    Date : Date
+    
 }
 const columns = [
     {
@@ -27,7 +27,7 @@ const columns = [
     },
    
     {
-      key: 'dateCaisse',
+      key: 'billet500',
       label: '500',
       _props: { scope: 'col' },
     },
@@ -74,10 +74,9 @@ function GestionCaisse () {
         caisseService.getCaisse()
         .then(res => { 
             SetCaisses( []);
-            const Per = res.data
-            console.log('avant',Per);
-            SetCaisses( [...caisses, ...Per]); 
             
+            SetCaisses( [...caisses, ...res.data]); 
+            console.log('apres',caisses);
                   
         })
         .catch(error => console.log(error))

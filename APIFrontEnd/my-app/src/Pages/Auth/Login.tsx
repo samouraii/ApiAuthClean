@@ -3,7 +3,7 @@ import {FormEventHandler, FormEvent, useState, ChangeEventHandler, ChangeEvent} 
 import { useNavigate } from 'react-router-dom';
 import {accountService } from '../../services/account_service';
 import { useEffect } from 'react';
-import bg from "C:\\Users\\mdphuyad\\source\\repos\\samouraii\\ApiAuthClean\\APIFrontEnd\\my-app\\src\\Pages\\Auth\\texture-mur-stuc-bleu-marine-relief-decoratif-abstrait-grunge-fond-colore-rugueux-grand-angle_1258-28311.jpg";
+import bg from "./texture-mur-stuc-bleu-marine-relief-decoratif-abstrait-grunge-fond-colore-rugueux-grand-angle_1258-28311.jpg";
 
 type credential ={
     UserName : string,
