@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using APiAuthTest.Model.ApplicationClient;
 
 namespace APiAuthTest.Model.UserModel
 {
-    public class societe
+    public class Societe
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -13,5 +14,6 @@ namespace APiAuthTest.Model.UserModel
         public string NumTVA { get; set; }
 
         public IEnumerable<Personne> Personnes{get;set;}
+        public List<GestionCaisse> caisse { get; set; }
     }
 }

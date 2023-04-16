@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
+using APiAuthTest.Model.ApplicationClient;
 
 namespace APiAuthTest.Model.UserModel
 {
@@ -21,6 +22,8 @@ namespace APiAuthTest.Model.UserModel
         [AllowNull]
        // public  List<Roles> roles{ get; set; }
         public List<Permissions> permissions { get; set; }
+        [AllowNull]
+        public List<GestionCaisse> CaisseEncoder { get; set; }
         
 
         public User(IEnumerable<Token> token = null, List<Permissions> p = null)

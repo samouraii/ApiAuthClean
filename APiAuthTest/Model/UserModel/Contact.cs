@@ -12,7 +12,7 @@ namespace APiAuthTest.Model.UserModel
         public Personne personne { get; set; }
         public MoyenDeConctact typeContact { get; set; }
         [AllowNull]
-        public societe societe { get; set; } = null;
+        public Societe societe { get; set; } = null;
         public string value { get; set; }
     }
 }

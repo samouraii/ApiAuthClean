@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { useEffect } from 'react';
 import { personneService } from '../../services/personne_service';
-
+import { CSmartTable } from '@coreui/react-pro';
+import '@coreui/coreui/dist/css/coreui.min.css'
 type PersonneDto ={
     idPersonne : Number,
     name : string,
@@ -20,51 +21,60 @@ function ListPersonne () {
             SetPersonnes( []);
             const Per = res.data
             console.log('avant',Per);
-            SetPersonnes( [...personnes, ...Per]);          
+            SetPersonnes( [...personnes, ...Per]); 
+                  
         })
         .catch(error => console.log(error))
         
         return SetPersonnes([]);
     }, []);
 
+    const columns = [
+      {
+        key: 'idPersonne',
+        label: '#',
+        _props: { scope: 'col' },
+      },
+     
+      {
+        key: 'name',
+        label: 'Nom',
+        _props: { scope: 'col' },
+      },
+      {
+        key: 'firstName',
+        label: 'Prenom',
+        _props: { scope: 'col' },
+      },
+    ]
 
    console.log('tot',personnes)
     if(personnes != undefined && personnes.length > 0)
     {
     return (
         
-        <div id="all">
         <div className="container">
-            <h1> List des personnes</h1>
-        <table className='events-table'>
-        <thead>
-        <tr >
-            <th className='event-date'>Prénom</th>
-            <th className='event-time'>Nom</th>
-            <th className='event-description'>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-       {
-       
-        personnes.map(item =>
-        {
-            ;
-            return(
-                <tr key={item.idPersonne.toString()} >
-                    
-                   <td  data-title="Nom">  {item.firstName}</td>
-                   <td data-title="Nationalité"> {item.name}</td>
-                   <td  data-title="Date création">{item.idPersonne.toString()}</td>
-                </tr>
-            )
-        } )
-        
-       }
-       </tbody>
-       </table>
-        </div>
-        </div>
+       <CSmartTable activePage={3}
+    cleaner
+    clickableRows columns={columns} items={personnes}  columnFilter
+    columnSorter
+    footer
+    itemsPerPageSelect
+    itemsPerPage={5}
+    pagination 
+    selectable
+    sorterValue={{ column: 'name', state: 'asc' }}
+    tableFilter
+    tableHeadProps={{
+      color: 'danger',
+    }}
+    tableProps={{
+      striped: true,
+      hover: true,
+    }}
+    
+    />
+   </div>
     );
     }
     else{

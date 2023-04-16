@@ -17,6 +17,8 @@ let login = (credential : any)=> {
     localStorage.removeItem('Token');    
 }
 
+
+
 let isLoggin = () => {
     let token = localStorage.getItem('Token');
     if(token){
@@ -29,6 +31,19 @@ let isLoggin = () => {
     }
    
     return !!token;
+}
+let token = () => {
+    let token = localStorage.getItem('Token');
+    if(token){
+             
+        const jwtToken = JSON.parse(atob(token.split('.')[1]));
+        const expires = jwtToken.exp * 1000 < Date.now()
+       
+    
+        if( expires ) logout();
+    }
+   
+    return token;
 }
 
 let getRole = () => {
@@ -43,14 +58,15 @@ let isRole =(role :any) =>{
     var roles = getRole() ;
 
     var t = roles.find(x => role?.includes(x));
-    console.log("tt",role);
-    return !!roles.find(x => role?.includes(x))
+    console.log("tt",roles);
+    return !!roles.find(x => role?.includes(x));
 }
+
 type token = {
     'http:\/\/schemas.microsoft.com/ws/2008/06/identity/claims/role':string,
     'http://schemas.microsoft.com/ws/2008/06/identity/claims/expiration':string
 }
 
 export const accountService ={
-login,saveToken, logout, isLoggin, isRole
+login,saveToken, logout, isLoggin, isRole, token,
 }

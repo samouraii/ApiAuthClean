@@ -9,7 +9,7 @@ import Accueil from './Pages/Accueil';
 
 import Nav from './Pages/Nav';
 import "./Pages/Nav.css"
-import ListPersonne from './Pages/Personne/ListPersonne';
+import ListPersonne2 from './Pages/Personne/ListPersonne2';
 
 
 
@@ -20,15 +20,37 @@ function App() {
      <Nav ></Nav>
     <Routes>
       <Route path="/" element={<Accueil />} />
-      <Route path="about" element={<ListPersonne />} />
+      <Route path="about" element={<ListPersonne2 />} />
       <Route path="/auth/*" element={<AuthRouter/>} />
       <Route path="/admin/*" element={
-      <AuthGard roles = {['Admin','coco']}>
+      <AuthGard roles = {['Admin', 'GestionCaisse']}>
         <AdminRouter/>
       </AuthGard>
       } />
     </Routes>
+
+    <footer>
+         <div className="container">
+            <div className="row">
+               <div className="col-sm-6">
+                   <p>Copyright &copy; 2019 <a href="templatshub.net">Templates Hub</a>.</p>
+               </div>
+               <div className="col-sm-6">
+                  <ul className="footer-list">
+                     <li><a href="#">Merchant</a></li>
+                     <li><a href="#">Dashboard</a></li>
+                     <li><a href="#">Home</a></li>
+                  </ul>
+                  
+               </div>
+              
+            </div>
+            
+         </div>
+         
+      </footer>
   </div>
+  
   );
 }
 

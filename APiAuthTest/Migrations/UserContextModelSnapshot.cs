@@ -17,10 +17,85 @@ namespace APiAuthTest.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.12")
+                .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("APiAuthTest.Model.ApplicationClient.GestionCaisse", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Billet001")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Billet002")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Billet005")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Billet010")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Billet020")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Billet050")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Billet100")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Billet500")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Commentaire")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCaisse")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("NbBiere")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Piece05")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Piece10")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Piece20")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Piece50")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Societe")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalBancontact")
+                        .HasColumnType("money");
+
+                    b.Property<decimal>("TotalRetrait")
+                        .HasColumnType("money");
+
+                    b.Property<int>("User")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Societe");
+
+                    b.HasIndex("User");
+
+                    b.ToTable("gestionCaisses");
+                });
 
             modelBuilder.Entity("APiAuthTest.Model.UserModel.Contact", b =>
                 {
@@ -28,7 +103,7 @@ namespace APiAuthTest.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdContact"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdContact"));
 
                     b.Property<int>("personneIdPersonne")
                         .HasColumnType("int");
@@ -60,7 +135,7 @@ namespace APiAuthTest.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdMoyenContact"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdMoyenContact"));
 
                     b.Property<string>("NameContact")
                         .IsRequired()
@@ -77,7 +152,7 @@ namespace APiAuthTest.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -94,7 +169,7 @@ namespace APiAuthTest.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdPersonne"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdPersonne"));
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -115,7 +190,7 @@ namespace APiAuthTest.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -130,13 +205,13 @@ namespace APiAuthTest.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("APiAuthTest.Model.UserModel.societe", b =>
+            modelBuilder.Entity("APiAuthTest.Model.UserModel.Societe", b =>
                 {
                     b.Property<int>("IdSociete")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdSociete"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdSociete"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -181,7 +256,7 @@ namespace APiAuthTest.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<byte[]>("PasswordHash")
                         .IsRequired()
@@ -237,7 +312,7 @@ namespace APiAuthTest.Migrations
                     b.ToTable("PermissionsUser");
                 });
 
-            modelBuilder.Entity("Personnesociete", b =>
+            modelBuilder.Entity("PersonneSociete", b =>
                 {
                     b.Property<int>("PersonnesIdPersonne")
                         .HasColumnType("int");
@@ -249,7 +324,26 @@ namespace APiAuthTest.Migrations
 
                     b.HasIndex("SocietesIdSociete");
 
-                    b.ToTable("Personnesociete");
+                    b.ToTable("PersonneSociete");
+                });
+
+            modelBuilder.Entity("APiAuthTest.Model.ApplicationClient.GestionCaisse", b =>
+                {
+                    b.HasOne("APiAuthTest.Model.UserModel.Societe", "societe")
+                        .WithMany("caisse")
+                        .HasForeignKey("Societe")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("APiAuthTest.Model.UserModel.User", "EncoderPar")
+                        .WithMany("CaisseEncoder")
+                        .HasForeignKey("User")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("EncoderPar");
+
+                    b.Navigation("societe");
                 });
 
             modelBuilder.Entity("APiAuthTest.Model.UserModel.Contact", b =>
@@ -260,7 +354,7 @@ namespace APiAuthTest.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("APiAuthTest.Model.UserModel.societe", "societe")
+                    b.HasOne("APiAuthTest.Model.UserModel.Societe", "societe")
                         .WithMany()
                         .HasForeignKey("societeIdSociete")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -325,7 +419,7 @@ namespace APiAuthTest.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Personnesociete", b =>
+            modelBuilder.Entity("PersonneSociete", b =>
                 {
                     b.HasOne("APiAuthTest.Model.UserModel.Personne", null)
                         .WithMany()
@@ -333,7 +427,7 @@ namespace APiAuthTest.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("APiAuthTest.Model.UserModel.societe", null)
+                    b.HasOne("APiAuthTest.Model.UserModel.Societe", null)
                         .WithMany()
                         .HasForeignKey("SocietesIdSociete")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -352,8 +446,15 @@ namespace APiAuthTest.Migrations
                     b.Navigation("user");
                 });
 
+            modelBuilder.Entity("APiAuthTest.Model.UserModel.Societe", b =>
+                {
+                    b.Navigation("caisse");
+                });
+
             modelBuilder.Entity("APiAuthTest.Model.UserModel.User", b =>
                 {
+                    b.Navigation("CaisseEncoder");
+
                     b.Navigation("token");
                 });
 #pragma warning restore 612, 618

@@ -1,7 +1,8 @@
 import BaseAxios from './serveurservice';
 
 let getPersonne = ()=> {
-    return BaseAxios.get('/Api/personne');
+   
+    return BaseAxios.get('/Api/personne' );
 }
 
 

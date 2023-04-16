@@ -13,7 +13,7 @@ namespace APiAuthTest.Model.UserModel
       
         public User? user { get; set; }
         public IEnumerable<Contact> Contacts { get; set; }
-        public IEnumerable<societe> Societes { get; set; }
+        public IEnumerable<Societe> Societes { get; set; }
 
     }
     public class PersonneDT0

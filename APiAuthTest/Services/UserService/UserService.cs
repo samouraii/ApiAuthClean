@@ -93,6 +93,9 @@ namespace APiAuthTest.Services.UserService
             return p;
         }
 
-   
+        public User GetUser(int id)
+        {
+            return _UserContext.Users.First(p => p.Id == id);
+        }
     }
 }
