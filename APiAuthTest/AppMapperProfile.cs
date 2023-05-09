@@ -16,6 +16,9 @@ namespace APiAuthTest
             CreateMap<GestionCaisseDto,GestionCaisse>()
             .ForMember(Dest => Dest.societe, o => o.Ignore())
             ;
+            CreateMap<GestionCaisse, GestionCaisseDto>()
+            .ForMember(Dest => Dest.societe, o => o.Ignore())
+            ;
         }
     }
 }

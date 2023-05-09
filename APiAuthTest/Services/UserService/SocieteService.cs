@@ -18,5 +18,10 @@ namespace APiAuthTest.Services.UserService
             Societe u = _UserContext.societe.First(s => s.IdSociete == id);
             return u;
         }
+        public Societe? GetSociete(string id)
+        {
+            Societe? u = _UserContext.societe.FirstOrDefault(s => s.Name == id);
+            return u;
+        }
     }
 }

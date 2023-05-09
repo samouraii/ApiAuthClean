@@ -8,7 +8,7 @@ function Admin () {
     }
     return (
         <div>
-            <h1> ADMIN PAGE </h1>
+            <h1> Portail PAGE en construction </h1>
             <button onClick={logout}>Logout</button>
         </div>
     );

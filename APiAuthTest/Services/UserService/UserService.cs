@@ -24,11 +24,11 @@ namespace APiAuthTest.Services.UserService
             return result;
         }
 
-      
+
 
         public User? FindOneUser(string username)
         {
-            User? u = _UserContext.Users.FirstOrDefault(s => s.Username == username);
+            User? u = _UserContext.Users.Include(x=> x.personne).Include(x=> x.personne.Societes).FirstOrDefault(s => s.Username == username);
             return u;
         }
 

@@ -13,9 +13,9 @@ namespace APiAuthTest.Model.ApplicationClient
         public int Id { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime DateCaisse {get;set;}
+        public DateTime DateCaisse {get;set;} 
         [DataType(DataType.DateTime)]
-        public DateTime DateEnregistrement { get; } = new DateTime();
+        public DateTime DateEnregistrement { get; set; } = new DateTime();
         public int Billet500 { get; set; } = 0;
         public int Billet200 { get; set; } = 0;
         public int Billet100 { get; set; } = 0;
@@ -31,10 +31,10 @@ namespace APiAuthTest.Model.ApplicationClient
         public int Piece05 { get; set; } = 0;
         [Column(TypeName = "money")]
         [DataType(DataType.Currency)]
-        public decimal TotalBancontact { get; set; } = 0;
+        public double TotalBancontact { get; set; } = 0;
         [Column(TypeName = "money")]
         [DataType(DataType.Currency)]
-        public decimal TotalRetrait { get; set; } = 0;
+        public double TotalRetrait { get; set; } = 0;
         public int NbBiere { get; set; } = 0;
         
         [ForeignKey("Societe")]
@@ -43,6 +43,17 @@ namespace APiAuthTest.Model.ApplicationClient
         public User EncoderPar { get; set; }
         [DataType(DataType.Text)]
         public string Commentaire { get; set; }
+       
+        
+        public double TotalCash()
+        {
+            
+                double total = Billet500 * 500 + Billet200 * 200 + Billet100 * 100 + Billet050 * 50;
+                total += Billet020 * 20 + Billet010 * 10 + Billet005 * 5+ Billet002 * 2 + Billet001 *1 + Piece50 * 0.5 + Piece20 * 0.2
+                    + Piece10 * 0.1 + Piece05 * 0.05 + TotalBancontact*1.0  ;
+                return total;
+            
+        }
 
     }
 
@@ -50,11 +61,12 @@ namespace APiAuthTest.Model.ApplicationClient
     {
 
 
-        public int Id { get; set; }
+        public int? Id { get; set; } 
 
         public DateTime DateCaisse { get; set; }
         
         public int Billet500 { get; set; } = 0;
+        public int Billet200 { get; set; } = 0;
         public int Billet100 { get; set; } = 0;
         public int Billet050 { get; set; } = 0;
         public int Billet020 { get; set; } = 0;
@@ -67,15 +79,20 @@ namespace APiAuthTest.Model.ApplicationClient
         public int Piece10 { get; set; } = 0;
         public int Piece05 { get; set; } = 0;
       
-        public decimal TotalBancontact { get; set; } = 0;
+        public double TotalBancontact { get; set; } = 0;
       
-        public decimal TotalRetrait { get; set; } = 0;
+        public double TotalRetrait { get; set; } = 0;
         public int NbBiere { get; set; } = 0;
 
-        public int societe { get; set; }
+        public string societe { get; set; }
        // public int EncoderPar { get; set; }
       
-        public string Commentaire { get; set; }
-
+        public string? Commentaire { get; set; }
+        public double TotalCash
+        {
+            get;set;
+        }
+        public double Balance { get; set; }
+        public string CodeMois { get; set; }
     }
 }

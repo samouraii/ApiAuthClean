@@ -6,6 +6,9 @@
   --Main-color-hover: #D68C12;
 
 }
+.react-datepicker-popper{
+z-index: 3;
+}
 
 
 /* Table Responsive */

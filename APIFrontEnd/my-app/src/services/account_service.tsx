@@ -17,6 +17,15 @@ let login = (credential : any)=> {
     localStorage.removeItem('Token');    
 }
 
+let nameUser = () =>{
+    let token = localStorage.getItem('Token');
+    if(isLoggin() && token){
+       
+        var decoded = jwt_decode<token>(token);
+        var name = decoded['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'];
+        return name;
+    }
+}
 
 
 let isLoggin = () => {
@@ -46,12 +55,16 @@ let token = () => {
     return token;
 }
 
+
 let getRole = () => {
     var token = localStorage.getItem('Token') ?? "";    
     //if (!!token) return [];
+    if (token){
     var decoded = jwt_decode<token>(token);
     var role = decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'].split(',');
-    return role;    
+    return role;  
+    }  
+    return [];
 }
 let isRole =(role :any) =>{
     
@@ -64,9 +77,10 @@ let isRole =(role :any) =>{
 
 type token = {
     'http:\/\/schemas.microsoft.com/ws/2008/06/identity/claims/role':string,
-    'http://schemas.microsoft.com/ws/2008/06/identity/claims/expiration':string
+    'http://schemas.microsoft.com/ws/2008/06/identity/claims/expiration':string,
+    'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name': string
 }
 
 export const accountService ={
-login,saveToken, logout, isLoggin, isRole, token,
+login,saveToken, logout, isLoggin, isRole, token,nameUser
 }

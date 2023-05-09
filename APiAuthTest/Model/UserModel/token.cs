@@ -10,4 +10,5 @@ namespace APiAuthTest.Model.UserModel
         public string Id { get; set; }
         public string token { get; set; }
     }
+
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using NuGet.Protocol;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -116,7 +117,7 @@ namespace APiAuthTest.Controllers
         }
         private string CreateToken(User user)
         {
-            DateTime t = DateTime.Now.AddMinutes(1);
+            DateTime t = DateTime.Now.AddMinutes(60);
             string roles = "";
             var tt = _userService.GetPermissions(user.Id).ToList<Permissions>();
                 tt.ForEach(x => roles += roles.Length >0? ";"+x.Name: x.Name);
@@ -124,9 +125,13 @@ namespace APiAuthTest.Controllers
             {
                 new Claim(ClaimTypes.Name, user.Username),
                 new Claim(ClaimTypes.Role, roles),
+               
                 new Claim(ClaimTypes.Expiration,t.ToString()),
                 };
-       
+            if (user.personne != null && user.personne.Societes.Count() > 0 ) {
+                claims.Add(new Claim("societe", user.personne.Societes.First().Name));
+            }
+
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512);
             var token = new JwtSecurityToken(

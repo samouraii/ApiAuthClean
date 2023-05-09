@@ -60,11 +60,11 @@ function Login () {
                 <h2>Connexion</h2>
                
             </div>
-            <div className="group">
+            <div className="group loginPage">
                 <label>Identifiant</label>
                 <input type="text" name="UserName" value={credential.UserName} onChange={onChange}/>
             </div>
-            <div className="group">
+            <div className="group loginPage">
                 <label>Mot de passe</label>
                 <input type="password" name="Password" value={credential.Password} onChange={onChange}/>
             </div>
